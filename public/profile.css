@@ -1,0 +1,7 @@
+#update-profile-form{
+    display: none;
+}
+
+#user-profile-table tr,th{
+    border:black 1px solid ;
+}
