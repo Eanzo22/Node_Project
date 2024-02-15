@@ -1,6 +1,7 @@
 const categoryModel = require ("../models/categoryModel");
 const express = require("express");
-const {categoryValidation} = require ("../util/categoryValidation");
+const { validateCategory } = require("../util/categoryValidation");
+
 const app = express();
 // app.use(cookiesParser());
 app.use(express.urlencoded({ extended: true }));
@@ -18,7 +19,9 @@ const getCategoryById = async (req,res)=> {
 }
 
 const addCategory = async (req,res)=> {
-    const {error, value} = categoryValidation(req.body);
+    const {error, value} = validateCategory(req.body);
+    console.log (req.body)
+    console.log(value)
     if (error) {
         //  bad request
         res.status(400).send({message:"Invalid form field.."})
@@ -26,23 +29,23 @@ const addCategory = async (req,res)=> {
     }
     const newCategory = await categoryModel.create(value)
     res.status(200).send(newCategory);
+    
 }
 
-const editCategory = async (req,res,next)=> {
-    try{
-        const {id} = req.params;
-        const {category} = req.body;
-        await categoryModel.findByIdAndUpdate(id,{categoryName:category});
-        res.status(200).send ({message:"category updated"});
-    }
-    catch (error){
-        next(error)
-    }
-}
+// const editCategory = async (req,res,next)=> {
+//     try{
+//         const {id} = req.params;
+//         const {category} = req.body;
+//         await categoryModel.findByIdAndUpdate(id,{categoryName:category});
+//         res.status(200).send ({message:"category updated"});
+//     }
+//     catch (error){
+//         next(error)
+//     }
+// }
 
 module.exports = {
     getCategories,
     getCategoryById,
-    addCategory,
-    editCategory
+    addCategory
 }
