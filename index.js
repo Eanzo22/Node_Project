@@ -1,11 +1,13 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cartRouter = require("./routes/cartRoute");
+const categoriesRouter = require("./routes/categoryRoute")
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use("/api/v1/cart", cartRouter);
+app.use("/api/v1/category", categoriesRouter);
 mongoose
   .connect("mongodb://127.0.0.1:27017/ECommerce")
   .then(() => {
