@@ -17,15 +17,15 @@ const createNewUser = async(req,res) =>{                  //registeration
     const {error, value} = validateNewUser(req.body);          //value is a user
     if(error)
     {
-        res.status(400).send("Invalid form field..",error);  
+        res.send({message:"Invalid form field..",error:error});  
     }
     else{
-    const {userName, userEmail , userPassword,status} = req.body;
+    const {userName, userEmail , userPassword,isAdmin} = req.body;
 
     //1-if email or password missing
     if(!userEmail  || !userPassword){
                                    
-        return res.status(422).send({message:"wrong email or password!"});   
+        return res.send({message:"wrong email or password!"});   
     }
 
     //2- if existing email
@@ -36,12 +36,12 @@ const createNewUser = async(req,res) =>{                  //registeration
                                                 
     const passwordHash = await bcrypt.hash(userPassword,10);     
 
-    const newUser = await createUserService({userName,userEmail, passwordHash,status});    
-    res.send(newUser);
+    const newUser = await createUserService({userName,userEmail, passwordHash,isAdmin});    
+    res.send({newUser:newUser,message:"successful registration"});
    }
 }
    catch(createNewUserError){
-    res.status(500).send(`createNewUserError: ${createNewUserError.message}`);
+    res.send({message:createNewUserError.message});
    }
 }
 
@@ -56,23 +56,23 @@ const login = async(req,res)=>{
         const {error, value} = validateLoginUser(req.body);          //value is a user
     if(error)
     {
-        res.status(400).send("Invalid form field..",error);  
+        res.send({message:"Invalid form field..",error:error});  
     }
     else{
         const {userEmail, userPassword} = req.body;
         if(!userEmail || !userPassword){
-            return res.status(422).send({message:"wrong email or password!"});
+            return res.send({message:"wrong email or password!"});
         }
         
         const user = await findUserService(userEmail);
         if(!user){
-            return res.status(401).send({message:"Incorrect email or password..."});
+            return res.send({message:"Incorrect email or password..."});
         }
 
         const isValidPassword = await bcrypt.compare(userPassword, user.passwordHash) ;
         
         if(!isValidPassword){
-            return res.status(401).send({message:"Incorret email or password..."});
+            return res.send({message:"Incorret email or password..."});
         }
                        
         const token = jwt.sign({userEmail}, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRE });
@@ -82,7 +82,7 @@ const login = async(req,res)=>{
      }
     }
     catch(LoginError){
-        res.status(500).send(`LoginError: ${LoginError.message}`);
+        res.send({message:LoginError.message});
     }
 }
 
@@ -90,17 +90,18 @@ const login = async(req,res)=>{
 ///////////////////////////////////////////////////////////////////////////////////////
 const getCurrentUser = async (req,res)=>{
     try{
-    const userEmail = req.headers["userEmail"];           
+    const userEmail = req.headers["useremail"];    //very very important : In JavaScript, header names are case-insensitive, so you should use consistent case when accessing headers.
+                                                   //  useremail not  userEmail   
     const user= await findUserService(userEmail);
    if(!user){
-    res.status(404).send("the user with given email was not found");
+    res.send({message:"the user with given email was not found"});
    }
    else{
     res.send(user);
    }
   }
   catch(getCurrentUserError){
-   res.status(404).send(`getCurrentUserError: ${getCurrentUserError.message}`);            
+   res.send({message:getCurrentUserError.message});            
   }
 }
 
@@ -114,24 +115,24 @@ const updateUserProfile=async(req,res)=>{
     const {error, value} = validateNewUser(req.body); 
     if(error)
     {
-        res.status(400).send("Invalid form field..",error);  
+        res.send({message:"Invalid form field..",error:error});  
     }
     else{
         const {userEmail} = req.body;
         const user= await findUserService(userEmail);
         if(!user){
-            res.status(404).send("the user with given email was not exist");
+            res.send({message:"the user with given email was not exist"});
             
         }
         else{
             await updateUserService (userEmail,req.body);       
             const updatedUser = await findUserService(userEmail);
-            res.send(updatedUser);
+            res.send({message:"your profile was updated successfully",updatedUser:updatedUser});
         } 
     }
   }
   catch(updateUserProfileError){
-    res.status(404).send(`updateUserProfileError: ${updateUserProfileError.message}`);
+    res.send({message: updateUserProfileError.message});
   }
     
 }

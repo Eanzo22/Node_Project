@@ -11,7 +11,7 @@ registrationForm.addEventListener("submit", async (e) => {
   const userName = document.getElementById("user-Name-input").value;
   const userEmail = document.getElementById("user-Email-input").value;
   const userPassword = document.getElementById("user-Password").value;
-  const status = document.getElementById("status-input").value;
+  const isAdmin = document.getElementById("isAdmin-input").value;
   const url = "http://localhost:3000/api/v1/register";
   try {
     // Send register data to the server
@@ -20,18 +20,19 @@ registrationForm.addEventListener("submit", async (e) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({userName, userEmail, userPassword,status }),
+      body: JSON.stringify({userName, userEmail, userPassword,isAdmin })
     });
 
     // Handle the server response
     if (response.ok) {
       const data = await response.json();
-
-      alert("successful registration");
+      alert(data.message);
 
       // Redirect or perform actions upon successful registration
-      
-      window.open("login.html");
+      if(data.message==="successful registration"){
+        window.open("login.html");
+      }
+     
 
     } else {
       const errorMessage = await response.text();

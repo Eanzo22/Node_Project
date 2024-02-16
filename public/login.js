@@ -27,13 +27,14 @@ loginForm.addEventListener("submit", async (e) => {
       //save token in cookie or sessionstorage
       sessionStorage.setItem("token", data.token);
       sessionStorage.setItem("userEmail", data.userEmail);
-
-      alert("Login successfully");
+      console.log(`data:${data}`);
+      alert(data.message);
 
       // Redirect or perform actions upon successful login
+      if(data.message==="access granted"){
+        window.open("profile.html");
+      }
       
-      window.open("profile.html");
-
     } else {
       const errorMessage = await response.text();
       console.error("Login failed:", errorMessage);

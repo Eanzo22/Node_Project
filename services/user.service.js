@@ -1,4 +1,4 @@
-const User = require("../schemas/user.schema");         //User is a class
+const User = require("../models/user.schema");         //User is a class
 
 
 

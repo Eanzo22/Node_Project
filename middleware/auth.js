@@ -1,5 +1,5 @@
 require('dotenv').config();
-const User = require("../schemas/user.schema");
+const User = require("../models/user.schema");
 const { findUserService} = require("../services/user.service");
 
 const jwt = require('jsonwebtoken');

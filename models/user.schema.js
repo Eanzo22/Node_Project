@@ -1,3 +1,4 @@
+const { boolean } = require("joi");
 const mongoose = require("mongoose");
 
 
@@ -32,10 +33,10 @@ const userSchema =  mongoose.Schema({
     //     ref:""                         
     // }]
     // ,
-    status:{
-        type:String,
+    isAdmin:{
+        type:Boolean,
         required:true,
-        default:"normal"
+        default:false
     }
 });
 

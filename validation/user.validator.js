@@ -5,7 +5,7 @@ const validateNewUser = (user)=>{              //server side validations
         userName : joi.string().min(3).max(50).required(),
         userEmail : joi.string().min(3).max(255).required(),
         userPassword: joi.string().min(3).max(1024).required(),  
-        status: joi.string().required(),      
+        isAdmin: joi.boolean().required(),      
         cart:joi.array(),
         orders:joi.array()
     });
