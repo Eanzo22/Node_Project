@@ -1,7 +1,7 @@
 const express = require('express');
 
-const{ getProducts,getProductById,addProduct, editProduct,deleteProduct} =require('../controller/productControllerDB');
-const { productValid } = require('../util/productVaildation');
+const{ getProducts,getProductById,addProduct, editProduct,deleteProduct} =require('../controllers/productControllerDB');
+const { productValid } = require('../validation/productVaildation');
 const productRouter = express.Router();
 
 productRouter.get('/' ,getProducts);

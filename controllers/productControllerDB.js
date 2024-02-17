@@ -1,10 +1,10 @@
 const  Product = require ("../models/productModelDB");
 const express = require("express");
 
-const { productValid, productValidUpdate} = require("../util/productVaildation");
+const { productValid, productValidUpdate} = require("../validation/productVaildation");
 const app = express();
 // app.use(cookiesParser());
-// app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 const getProducts = async (req,res) =>{

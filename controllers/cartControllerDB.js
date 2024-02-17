@@ -1,9 +1,9 @@
 const Cart = require("../models/cartModelDB");
 const express = require("express");
-const cookiesParser = require("cookie-parser");
-const cartValidationRouts = require("../util/cartValidation");
+// const cookiesParser = require("cookie-parser");
+const cartValidationRouts = require("../validation/cartValidation");
 const app = express();
-app.use(cookiesParser());
+// app.use(cookiesParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 //Get the current user's shopping cart using _id

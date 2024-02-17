@@ -1,6 +1,6 @@
 const categoryModel = require ("../models/categoryModel");
 const express = require("express");
-const { validateCategory } = require("../util/categoryValidation");
+const { validateCategory } = require("../validation/categoryValidation");
 
 const app = express();
 // app.use(cookiesParser());

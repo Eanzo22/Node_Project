@@ -1,5 +1,5 @@
 const express = require("express");
-const cartController = require("../controller/cartControllerDB");
+const cartController = require("../controllers/cartControllerDB");
 const cartRouter = express.Router();
 
 // cartRouter.get("/api/v1/cart", cartController.getUserCart);
