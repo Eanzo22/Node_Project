@@ -9,7 +9,7 @@ const cartRouter = express.Router();
 // cartRouter.delete("/api/v1/cart/clear", cartController.deleteAllUserCart);
 
 cartRouter.get("/", cartController.getUserCart);
-cartRouter.get("/add", cartController.addNewProToUserCart);
+// cartRouter.get("/add", cartController.addNewProToUserCart);
 cartRouter.post("/add", cartController.addNewProToUserCart);
 cartRouter.put("/:myObj", cartController.updateProInUserCart);
 cartRouter.delete("/clear", cartController.deleteAllUserCart);

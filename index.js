@@ -1,4 +1,4 @@
-require('dotenv').config();
+require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cartRouter = require("./routes/cartRoute");
@@ -8,13 +8,9 @@ const app = express();
 
 require("./DB/index");
 
-
-
 //////////////////////////////////
 //routes
-const userRouter = require('./routes/user.router');  
-
-
+const userRouter = require("./routes/user.router");
 
 //////////////////////////////////
 //middle ware functions
@@ -36,8 +32,8 @@ app.use("/api/v1/product", productRouter);
 //     console.log(`Error In Connection: ${Error}`);
 //   });
 
-// app.listen(3000);
-// // changing from 
+app.listen(3000);
+// // changing from
 // //commint
 // //commint2
 // //another test

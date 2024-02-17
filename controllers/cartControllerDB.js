@@ -1,24 +1,29 @@
 const Cart = require("../models/cartModelDB");
 const express = require("express");
-// const cookiesParser = require("cookie-parser");
+const cookiesParser = require("cookie-parser");
 const cartValidationRouts = require("../validation/cartValidation");
+const ejs = require("ejs");
 const app = express();
-// app.use(cookiesParser());
+app.use(cookiesParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.set("view engine", "ejs");
 //Get the current user's shopping cart using _id
 
 let getUserCart = async (req, res) => {
   // let cookieUserId = Buffer.from(req.cookies.id, "base64");
 
-  let cookieUserId = "1";
+  let cookieUserId = "2";
 
   // let cart = await Cart().findById({ userId: cookieUserId });
-  let cart = await Cart.find({ userId: cookieUserId });
+  let cart = await Cart.find({
+    /*userId: cookieUserId  */
+  });
   //   let cookieUserId = req.body.userId;
   //   let cart = await Cart().find({ userId: cookieUserId });
   if (cart) {
-    res.send(cart);
+    // res.send(cart);
+    res.render("../views/cart/cart.ejs", { allCartPro: cart });
   } else {
     return res.status(404).send(`User With Id: ${cookieUserId} Not Found`);
   }
@@ -43,6 +48,8 @@ let addNewProToUserCart = (req, res) => {
       .save()
       .then(() => {
         res.send(cart);
+        // res.redirect("/")
+        // res.sendStatus(200);
       })
       .catch((err) => {
         res.status(400).send("Bad Request In Cart: " + err.errors);
