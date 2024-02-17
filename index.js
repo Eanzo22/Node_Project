@@ -1,10 +1,23 @@
+require('dotenv').config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cartRouter = require("./routes/cartRoute");
 const categoriesRouter = require("./routes/categoryRoute");
 const productRouter = require("./routes/productRoute");
 const app = express();
-app.use(express.urlencoded({ extended: true }));
+
+require("./DB/index");
+
+
+
+//////////////////////////////////
+//routes
+const userRouter = require('./routes/user.router');  
+
+
+
+//////////////////////////////////
+//middle ware functions
 app.use(express.json());
 // app.use(express.static("public"))
 // app.set('view engine','ejs');
@@ -23,7 +36,8 @@ mongoose
     console.log(`Error In Connection: ${Error}`);
   });
 
-app.listen(3000);
-// changing from 
-//commint
-//commint2
+// app.listen(3000);
+// // changing from 
+// //commint
+// //commint2
+// //another test
