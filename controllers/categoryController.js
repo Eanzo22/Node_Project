@@ -10,12 +10,24 @@ app.use(express.json());
 const getCategories = async (req,res) =>{
     const categories = await categoryModel.find({})
     res.status(200).send(categories);
+    // res.render('category',{getCat:categories})
 }
 
 const getCategoryById = async (req,res)=> {
     const {id} = req.params;
+    try{
     const categryById = await categoryModel.findById(id)
-    res.status(200).send(categryById);
+
+    if(!categryById  ) {
+        res.status(404).send("this category not found")
+           return ;}
+           else{
+            res.status(200).send(categryById);
+           };
+        }catch(error){
+            res.status(404).send(error.message)
+        }
+    
 }
 
 const addCategory = async (req,res)=> {
@@ -24,7 +36,7 @@ const addCategory = async (req,res)=> {
     console.log(value)
     if (error) {
         //  bad request
-        res.status(400).send({message:"Invalid form field.."})
+        res.status(400).send({message:`Invalid form field..${error}`})
         return;
     }
     const newCategory = await categoryModel.create(value)
@@ -40,7 +52,7 @@ const addCategory = async (req,res)=> {
 //         res.status(200).send ({message:"category updated"});
 //     }
 //     catch (error){
-//         next(error)
+//         next(error)y
 //     }
 // }
 
