@@ -3,6 +3,11 @@ const categorySchema = new mongoose.Schema({
     nameCAt: {
         type: String,
         required :true
+    },
+    img:{
+        type: String,
+        required :true
+    
     }
 })
 
