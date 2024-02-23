@@ -78,7 +78,7 @@ const login = async (req, res) => {
       if (!isValidPassword) {
         return res.send({ message: "Incorrect email or password..." });
       }
-      const token = 0;
+      let token = 0;
       if (user.isAdmin) {
         token = jwt.sign({ userEmail }, process.env.JWT_ADMIN_SECRET, {
           expiresIn: process.env.JWT_EXPIRE,
