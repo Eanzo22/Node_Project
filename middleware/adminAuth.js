@@ -6,11 +6,11 @@ const jwt = require('jsonwebtoken');
 
 ////////////////////////////////////////////////////////////////////////////
 
-const auth = async (req, res, next) =>{
+const adminAuth = async (req, res, next) =>{
     try{
-        const token = req.headers["jwt"];
+        const token = req.headers["token"];
         if(!token) {
-            return res.status(401).send({message:"unauthorized user due to invalid jwt token please re-login."});
+            return res.status(401).send({message:"admin auth ,unauthorized user due to invalid jwt token please re-login."});
         }
         const payload = jwt.verify(token,process.env.JWT_ADMIN_SECRET);       
         const {userEmail} = payload;
@@ -27,4 +27,4 @@ const auth = async (req, res, next) =>{
 
 ////////////////////////////////////////////////////////////
 
-module.exports = {auth};
+module.exports = {adminAuth};
