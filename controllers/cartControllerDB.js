@@ -8,6 +8,9 @@ app.use(cookiesParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.set("view engine", "ejs");
+const path = require("path");
+app.use(express.static("public"));
+
 //Get the current user's shopping cart using _id
 
 let getUserCart = async (req, res) => {
@@ -33,16 +36,17 @@ let addNewProToUserCart = (req, res) => {
   let valid = cartValidationRouts(req.body);
   // let cookieUserId = Buffer.from(req.cookies.id, "base64");
 
-  let cart = new Cart({
-    proId: req.body.proId,
-    proName: req.body.proName,
-    proDescription: req.body.proDescription,
-    proCategory: req.body.proCategory,
-    proPrice: req.body.proPrice,
-    proImg: req.body.proImg,
-    // userId: cookieUserId,
-    userId: req.body.userId,
-  });
+  let cart = new Cart(req.body);
+  // let cart = new Cart({
+  //   proId: req.body.proId,
+  //   proName: req.body.proName,
+  //   proDescription: req.body.proDescription,
+  //   proCategory: req.body.proCategory,
+  //   proPrice: req.body.proPrice,
+  //   proImg: req.body.proImg,
+  //   // userId: cookieUserId,
+  //   userId: req.body.userId,
+  // });
   if (valid) {
     cart
       .save()
@@ -83,19 +87,25 @@ let updateProInUserCart = async (req, res) => {
   }
 };
 //Remove a product from the shopping cart.
+
 let deleteOneProductFromUserCart = async (req, res) => {
   // let cookieUserId = Buffer.from(req.cookies.id, "base64");
   // let productIdParam = req.params.proId;
-  let cookieUserId = JSON.parse(req.params.myObj).userId;
+  // let cookieUserId = JSON.parse(req.params.myObj).userId;
 
-  let productIdParam = JSON.parse(req.params.myObj).proId;
+  // let productIdParam = JSON.parse(req.params.myObj).proId;
 
+  // let DelOneCart = await Cart.findOneAndDelete({
+  //   userId: cookieUserId,
+  //   proId: productIdParam,
+  // });
+  let productIdParam = req.params.myObj;
   let DelOneCart = await Cart.findOneAndDelete({
-    userId: cookieUserId,
-    proId: productIdParam,
+    _id: productIdParam,
   });
   if (DelOneCart) {
-    res.send("Product Deleted Successfuly");
+    // res.send("Product Deleted Successfuly");
+    res.redirect("/api/v1/cart");
   } else {
     return res
       .status(404)

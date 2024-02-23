@@ -1,6 +1,7 @@
 const express = require("express");
 const cartController = require("../controllers/cartControllerDB");
 const cartRouter = express.Router();
+app = express();
 
 // cartRouter.get("/api/v1/cart", cartController.getUserCart);
 // cartRouter.post("/api/v1/cart/add", cartController.addNewProToUserCart);
@@ -11,8 +12,9 @@ const cartRouter = express.Router();
 cartRouter.get("/", cartController.getUserCart);
 // cartRouter.get("/add", cartController.addNewProToUserCart);
 cartRouter.post("/add", cartController.addNewProToUserCart);
-cartRouter.put("/:myObj", cartController.updateProInUserCart);
+cartRouter.put("/upd/:myObj", cartController.updateProInUserCart);
 cartRouter.delete("/clear", cartController.deleteAllUserCart);
-cartRouter.delete("/:myObj", cartController.deleteOneProductFromUserCart);
+cartRouter.get("/del/:myObj", cartController.deleteOneProductFromUserCart);
+cartRouter.delete("/del/:myObj", cartController.deleteOneProductFromUserCart);
 
 module.exports = cartRouter;
