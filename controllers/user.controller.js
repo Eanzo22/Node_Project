@@ -12,7 +12,7 @@ const jwt = require("jsonwebtoken");
 
 /////////////////////////////////////////////////////////////////////////
 
-const createNewUser = async(req,res) =>{                  //registeration
+const createNewUser = async(req,res) =>{                  //registration
    try{
     const {error, value} = validateNewUser(req.body);          //value is a user
     if(error)
@@ -72,13 +72,21 @@ const login = async(req,res)=>{
         const isValidPassword = await bcrypt.compare(userPassword, user.passwordHash) ;
         
         if(!isValidPassword){
-            return res.send({message:"Incorret email or password..."});
+            return res.send({message:"Incorrect email or password..."});
         }
-                       
-        const token = jwt.sign({userEmail}, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRE });
+        const token=0;
+        if(user.isAdmin){
+            token = jwt.sign({userEmail}, process.env.JWT_ADMIN_SECRET, { expiresIn: process.env.JWT_EXPIRE }); //*takes the admin token with the admin secret key
+        }
+        else{
+            token = jwt.sign({userEmail}, process.env.JWT_USER_SECRET, { expiresIn: process.env.JWT_EXPIRE });//*takes the user token with user secret key
+        }
 
-                                
-        res.header({jwt:token}).send({token:token,userEmail:userEmail, message:"access granted"});
+        if(user.isAdmin)
+            res.header({jwt:token}).send({token:token,userEmail:userEmail, message:"access granted,Welcome admin hamada"});
+        else
+            res.header({jwt:token}).send({token:token,userEmail:userEmail, message:"access granted,Welcome user hamoda"});
+
      }
     }
     catch(LoginError){

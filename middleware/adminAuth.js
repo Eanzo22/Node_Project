@@ -12,13 +12,13 @@ const auth = async (req, res, next) =>{
         if(!token) {
             return res.status(401).send({message:"unauthorized user due to invalid jwt token please re-login."});
         }
-        const payload = jwt.verify(token,process.env.JWT_USER_SECRET);       
+        const payload = jwt.verify(token,process.env.JWT_ADMIN_SECRET);       
         const {userEmail} = payload;
         const user = await findUserService(userEmail);
         if(!user){
             return res.status(401).send({message:"unauthorized user"});
         }
-        next();                 //means can route and see the data
+        next();                 //*means can route and see the data
     }
     catch(authError){
         return res.status(401).send({message:"Error in user authentication function: "+authError.message});
