@@ -1,9 +1,6 @@
 // Select the login form element
 const loginForm = document.getElementById("login-form");
 
-
-
-
 loginForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   const userEmail = document.getElementById("user-email-input").value;
@@ -22,7 +19,6 @@ loginForm.addEventListener("submit", async (e) => {
     // Handle the server response
     if (response.ok) {
       const data = await response.json();
-      
 
       //save token in cookie or sessionstorage
       sessionStorage.setItem("token", data.token);
@@ -31,10 +27,10 @@ loginForm.addEventListener("submit", async (e) => {
       alert(data.message);
 
       // Redirect or perform actions upon successful login
-      if(data.message==="access granted"){
+      if (data.token) {
+        /* Here Ya Mohamed --------------------------------------------------------*/
         window.open("profile.html");
       }
-      
     } else {
       const errorMessage = await response.text();
       console.error("Login failed:", errorMessage);
