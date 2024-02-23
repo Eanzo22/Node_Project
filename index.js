@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const cartRouter = require("./routes/cartRoute");
 const categoriesRouter = require("./routes/categoryRoute");
 const productRouter = require("./routes/productRoute");
+const ordersRouter = require("./routes/orderRouter");
 const app = express();
 require("./DB/index");
 
@@ -22,6 +23,7 @@ app.use(express.json());
 app.use("/api/v1/cart", cartRouter);
 app.use("/api/v1/category", categoriesRouter);
 app.use("/api/v1/product", productRouter);
+app.use("/api/v1/orders", ordersRouter);
 
 // mongoose
 //   .connect("mongodb://localhost:27017/ECommerce")
@@ -33,7 +35,3 @@ app.use("/api/v1/product", productRouter);
 //   });
 
 app.listen(3000);
-// // changing from
-// //commint
-// //commint2
-// //another test

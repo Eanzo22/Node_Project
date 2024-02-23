@@ -16,14 +16,15 @@ const getCategories = async (req,res) =>{
 const getCategoryById = async (req,res)=> {
     const {id} = req.params;
     try{
-    const categryById = await categoryModel.findById(id)
+    const categoryById = await categoryModel.findById(id)
 
-    if(!categryById  ) {
+    if(!categoryById  ) {
         res.status(404).send("this category not found")
-           return ;}
-           else{
-            res.status(200).send(categryById);
-           };
+           return ;
+        }
+        else{
+            res.status(200).send(categoryById);
+        };
         }catch(error){
             res.status(404).send(error.message)
         }
