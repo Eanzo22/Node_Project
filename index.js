@@ -24,6 +24,7 @@ app.use("/api/v1/cart", cartRouter);
 app.use("/api/v1/category", categoriesRouter);
 app.use("/api/v1/product", productRouter);
 app.use("/api/v1/orders", ordersRouter);
+app.use("/api/v1/", userRouter);
 
 // mongoose
 //   .connect("mongodb://localhost:27017/ECommerce")
