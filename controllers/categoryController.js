@@ -20,10 +20,11 @@ const getCategoryById = async (req,res)=> {
 
     if(!categryById  ) {
         res.status(404).send("this category not found")
-           return ;}
-           else{
+           return ;
+        }
+        else{
             res.status(200).send(categryById);
-           };
+        };
         }catch(error){
             res.status(404).send(error.message)
         }

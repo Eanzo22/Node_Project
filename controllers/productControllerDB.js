@@ -33,19 +33,24 @@ const getProductById = async (req,res)=> {
 }
 
 const addProduct = async (req,res)=> {
-
-    const {error, value} = productValid(req.body);
-     console.log(req.body);
-     console.log(value);
-     console.log(error);
-    if (error) {
-        //  bad request
-        res.status(400).send({message:`Invalid form field..${error}`})
-        return;
+    try {
+        const {error, value} = productValid(req.body);
+        console.log(req.body);
+        console.log(value);
+        console.log(error);
+       if (error) {
+           //  bad request
+           res.status(400).send({message:`Invalid form field..${error}`})
+           return;
+       }
+       // const value =req.body
+       const newProduct = await Product.create(value)
+       res.status(200).send(newProduct );
+    } catch (error) {
+        res.status(404).send(error.message)
     }
-    // const value =req.body
-    const newProduct = await Product.create(value)
-    res.status(200).send(newProduct );
+
+
     
 }
 
@@ -71,7 +76,7 @@ const editProduct = async (req,res)=> {
            res.send(updatedProduct);
                  
                };
-     
+
     }
     catch (error){
         res.status(404).send(`${error}`) 
