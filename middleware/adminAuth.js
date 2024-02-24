@@ -1,6 +1,6 @@
 require('dotenv').config();
 // const User = require("../models/user.schema");
-const { findUserService} = require("../services/user.service");
+const {findUserService} = require("../services/user.service");
 
 const jwt = require('jsonwebtoken');
 
@@ -8,7 +8,10 @@ const jwt = require('jsonwebtoken');
 
 const adminAuth = async (req, res, next) =>{
     try{
-        const token = req.headers["token"];
+        // console.log(req.headers)
+        // console.log(req.headers["jwt"])
+        const token = req.headers["jwt"];
+        // console.log(token)
         if(!token) {
             return res.status(401).send({message:"admin auth ,unauthorized user due to invalid jwt token please re-login."});
         }

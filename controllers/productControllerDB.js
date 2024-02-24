@@ -1,7 +1,7 @@
 const  Product = require ("../models/productModelDB");
 const express = require("express");
 
-const { productValid, productValidUpdate} = require("../validation/productVaildation");
+const { productValid, productValidUpdate} = require("../validation/productValidation");
 const app = express();
 // app.use(cookiesParser());
 app.use(express.urlencoded({ extended: true }));

@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken');
 
 const userAuth = async (req, res, next) =>{
     try{
-        const token = req.headers["token"];
+        const token = req.headers["jwt"];
         if(!token) {
             return res.status(401).send({message:"unauthorized user due to invalid jwt token please re-login."});
         }

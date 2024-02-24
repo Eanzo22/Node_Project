@@ -11,13 +11,17 @@ const url = "http://localhost:3000/api/v1/profile";
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "userEmail": sessionStorage.getItem("userEmail")
+        "userEmail": sessionStorage.getItem("userEmail"),
+        "jwt":sessionStorage.getItem("token")
       }
     });
-
+    console.log(sessionStorage.getItem('userEmail'))
+    console.log(sessionStorage.getItem('token'))
+    console.log(response);
     // Handle the server response
     if (response.ok) {
       const data = await response.json();
+      console.log(data)
       userName.innerHTML=`${data.userName}`;
       userEmail.innerHTML=`${data.userEmail}`;
     } else {

@@ -12,18 +12,19 @@ loginForm.addEventListener("submit", async (e) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "userEmail":sessionStorage.getItem("userEmail")
       },
       body: JSON.stringify({ userEmail, userPassword }),
     });
-
     // Handle the server response
     if (response.ok) {
       const data = await response.json();
-
+      
+      // console.log(response)
       //save token in cookie or sessionstorage
       sessionStorage.setItem("token", data.token);
       sessionStorage.setItem("userEmail", data.userEmail);
-      console.log(`data:${data}`);
+      // console.log(data);
       alert(data.message);
 
       // Redirect or perform actions upon successful login

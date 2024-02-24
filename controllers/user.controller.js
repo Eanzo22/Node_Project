@@ -110,8 +110,8 @@ const login = async (req, res) => {
 ///////////////////////////////////////////////////////////////////////////////////////
 const getCurrentUser = async (req, res) => {
   try {
-    const userEmail = req.headers["userEmail"]; //very very important : In JavaScript, header names are case-insensitive, so you should use consistent case when accessing headers.
-    //  userEmail not  userEmail
+    const userEmail = req.headers["useremail"]; //very very important : In JavaScript, header names are case-insensitive, so you should use consistent case when accessing headers.
+    //  useremail not  userEmail
     const user = await findUserService(userEmail);
     if (!user) {
       res.send({ message: "the user with given email was not found" });
