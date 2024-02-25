@@ -23,16 +23,7 @@ const userSchema =  mongoose.Schema({
         minLength:3,
         maxLength:1024,
     },
-    // cart:[{
-    //     type:mongoose.Schema.Types.ObjectId,
-    //     ref:""                         
-    // }]
-    // ,
-    // orders:[{
-    //     type:mongoose.Schema.Types.ObjectId,
-    //     ref:""                         
-    // }]
-    // ,
+   
     isAdmin:{
         type:Boolean,
         required:true,

@@ -7,7 +7,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 const getAllOrders = async(req, res)=> {
-    const orders = await orderModel.find({}).populate('productIds');
+    const orders = await orderModel.find({}).populate(['productIds','user']);
     res.status(200).send(orders);
 }
 
@@ -21,7 +21,7 @@ const getAllOrders = async(req, res)=> {
 const getOrderById = async(req, res) => {
     const {id} = req.params;
     try{
-        const orderById =await orderModel.findById(id).populate('productIds')
+        const orderById =await orderModel.findById(id).populate(['productIds','user']);
         if (!orderById){
             res.status(404).send("this order not found");
             return;
@@ -58,9 +58,9 @@ const deleteOrder = async (req, res, next) => {
 }
 
 const addOrder = async (req, res, next) => { 
-    const {productIds,userEmail,totalPrice} = req.body; 
+    const {productIds,user,totalPrice} = req.body; 
     // console.log(req.body) 
-    var newOrder = await orderModel.create({productIds,userEmail,totalPrice}); 
+    var newOrder = await orderModel.create({productIds,user,totalPrice}); 
     res.status(200).send("Success"); 
 };
 

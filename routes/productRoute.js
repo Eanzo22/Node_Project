@@ -9,5 +9,5 @@ productRouter.get('/' ,getProducts);
 productRouter.get('/:id' ,getProductById);
 productRouter.post("/",addProduct);
 productRouter.patch("/:id",adminAuth,editProduct);
-productRouter.delete("/:id",deleteProduct);
+productRouter.delete("/:id",adminAuth,deleteProduct);
 module.exports = productRouter;
