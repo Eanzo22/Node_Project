@@ -19,9 +19,17 @@ require("./DB/index");
 //middle ware functions
 app.use(express.static("public"));
 app.use(express.json());
+app.use(express.static("public"))
+// app.set('view engine','ejs');
 // app.set("view engine", "ejs");
 
 //////////////////////////////////Routs//////////////////////////////////
+
+app.use("/api/v1/cart", cartRouter);
+app.use("/api/v1/category", categoriesRouter);
+app.use("/api/v1/product", productRouter);
+app.use("/api/v1/orders",ordersRouter);
+app.use("/api/v1/",userRouter);
 app.use("/api/v1", userRouter);
 // app.use(adminAuth)
 app.use("/api/v1/admin",adminAuth,adminRouter);
