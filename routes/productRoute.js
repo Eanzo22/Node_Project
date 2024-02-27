@@ -1,7 +1,7 @@
 const express = require('express');
 
 const{ getProducts,getProductById,addProduct, editProduct,deleteProduct} =require('../controllers/productControllerDB');
-const { productValid } = require('../validation/productValidation');
+//const { productValid } = require('../validation/productValidation');
 const { adminAuth } = require('../middleware/adminAuth');
 const productRouter = express.Router();
 

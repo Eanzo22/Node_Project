@@ -10,7 +10,7 @@ let createPayment = async (req, res) => {
 
     res.status(201).json({ clientSecret: paymentIntent.client_secret });
   } catch (err) {
-    res.status(400).json({ message: "Catch Erro : " + err.message });
+    res.status(400).json({ message: "Catch Error : " + err.message });
   }
 };
 
