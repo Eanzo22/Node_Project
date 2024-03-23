@@ -28,6 +28,10 @@ const userSchema =  mongoose.Schema({
         type:Boolean,
         required:true,
         default:false
+    },
+    img:{
+        type:String,
+        default:"https://i.pinimg.com/564x/84/c4/3f/84c43fce22c82dc5bfe8d55d90557c88.jpg"
     }
 });
 

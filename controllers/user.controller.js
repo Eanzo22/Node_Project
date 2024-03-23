@@ -8,6 +8,7 @@ const {
 const {
   validateNewUser,
   validateLoginUser,
+  validateEditUser
 } = require("../validation/user.validator");
 
 const bcrypt = require("bcrypt");
@@ -22,7 +23,7 @@ const createNewUser = async (req, res) => {
     if (error) {
       res.send({ message: "Invalid form field..", error: error });
     } else {
-      const { userName, userEmail, userPassword, isAdmin } = req.body;
+      const { userName, userEmail, userPassword } = req.body;
 
       //1-if email or password missing
       if (!userEmail || !userPassword) {
@@ -42,8 +43,8 @@ const createNewUser = async (req, res) => {
       const newUser = await createUserService({
         userName,
         userEmail,
-        passwordHash,
-        isAdmin,
+        passwordHash
+        
       });
       res.send({ newUser: newUser, message: "successful registration" });
     }
@@ -99,7 +100,7 @@ const login = async (req, res) => {
         res.header({ jwt: token }).send({
           token: token,
           userEmail: userEmail,
-          message: "access granted,Welcome user hamoda",
+          message: `access granted,Welcome user ${user.userName}`,
         });
     }
   } catch (LoginError) {
@@ -116,7 +117,7 @@ const getCurrentUser = async (req, res) => {
     if (!user) {
       res.send({ message: "the user with given email was not found" });
     } else {
-      res.send(user);
+      res.send({user:user});
     }
   } catch (getCurrentUserError) {
     res.send({ message: getCurrentUserError.message });
@@ -127,7 +128,7 @@ const getCurrentUser = async (req, res) => {
 
 const updateUserProfile = async (req, res) => {
   try {
-    const { error, value } = validateNewUser(req.body);
+    const { error, value } = validateEditUser(req.body);
     if (error) {
       res.send({ message: "Invalid form field..", error: error });
     } else {
