@@ -32,6 +32,7 @@ const getProductById = async (req,res)=> {
  
 }
 
+
 const addProduct = async (req,res)=> {
     try {
         const {error, value} = productValid(req.body);
@@ -103,10 +104,28 @@ const deleteProduct=async(req,res)=>{
 
 }
 
+const getProductByCatName = async (req,res)=> {
+
+    
+        const {CatName} = req.params;
+        console.log(CatName);
+
+        const ProductByCatName = await Product.find({proCategory:CatName})
+
+        if(!ProductByCatName ) {
+            res.status(404).send("this category not found")
+               return ;}
+               else{
+                res.status(200).send(ProductByCatName);
+               };
+ 
+}
+
 module.exports = {
     getProducts,
     getProductById,
     addProduct,
     editProduct,
-    deleteProduct
+    deleteProduct,
+    getProductByCatName
 }
